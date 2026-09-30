@@ -1,1742 +1,2434 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>شمس ميثم | تجميل وليزر</title>
+<title>AI Girl</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-:root{
-    --pink:#e84b91;
-    --pink2:#ff77b6;
-    --purple:#7656d6;
-    --dark:#171321;
-    --card:#ffffff;
-    --bg:#fff7fb;
-    --text:#29222d;
-    --muted:#817681;
-    --border:#f0dce8;
-    --success:#32b67a;
-    --danger:#e74c67;
+:root {
+    --bg: #0d0d12;
+    --panel: #15151d;
+    --panel2: #1d1d28;
+    --border: rgba(255,255,255,.08);
+    --text: #f5f5f7;
+    --muted: #9999a8;
+    --accent: #ff6fae;
+    --accent2: #ff9ac7;
+    --user: #ff5fa3;
+    --ai: #242431;
 }
 
-body{
-    margin:0;
-    font-family:
-        "Segoe UI",
-        Tahoma,
-        Arial,
-        sans-serif;
+body {
+    margin: 0;
+    font-family: Arial, "Tahoma", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+}
 
+/* =========================
+   API SCREEN
+========================= */
+
+#apiScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background:
-        radial-gradient(circle at top right,#ffe1ef,transparent 35%),
-        radial-gradient(circle at bottom left,#e7ddff,transparent 35%),
-        var(--bg);
-
-    color:var(--text);
+        radial-gradient(circle at 30% 20%, rgba(255,105,170,.18), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(150,90,255,.15), transparent 30%),
+        #0b0b10;
+    padding: 20px;
 }
 
-/* ================= HEADER ================= */
-
-.header{
-    position:sticky;
-    top:0;
-    z-index:100;
-
-    backdrop-filter:blur(18px);
-
-    background:rgba(255,255,255,.86);
-
-    border-bottom:1px solid var(--border);
-
-    padding:14px 20px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    gap:20px;
+.api-card {
+    width: min(500px, 100%);
+    background: rgba(24,24,33,.94);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 32px;
+    box-shadow: 0 30px 100px rgba(0,0,0,.5);
+    backdrop-filter: blur(20px);
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
+.logo {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 20px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,#ff5fa3,#9b65ff);
+    font-size: 38px;
+    box-shadow: 0 15px 40px rgba(255,95,163,.25);
 }
 
-.logo{
-    width:52px;
-    height:52px;
-
-    border-radius:18px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:25px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff75b7,
-            #8a63df
-        );
-
-    color:white;
-
-    box-shadow:
-        0 8px 25px rgba(150,80,150,.25);
+.api-card h1 {
+    text-align: center;
+    margin: 0 0 10px;
 }
 
-.brandText h1{
-    margin:0;
-    font-size:18px;
+.api-card p {
+    text-align: center;
+    color: var(--muted);
+    line-height: 1.7;
 }
 
-.brandText span{
-    font-size:12px;
-    color:var(--muted);
+.input {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: #101017;
+    color: white;
+    padding: 14px 16px;
+    border-radius: 14px;
+    outline: none;
+    font-size: 15px;
 }
 
-.userArea{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.input:focus {
+    border-color: var(--accent);
 }
 
-.loginBtn{
-    border:0;
-
-    background:#16131b;
-    color:white;
-
-    padding:11px 18px;
-
-    border-radius:13px;
-
-    cursor:pointer;
-
-    font-weight:700;
+.btn {
+    border: 0;
+    border-radius: 14px;
+    padding: 13px 18px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg,#ff5fa3,#a05cff);
+    transition: .2s;
 }
 
-.loginBtn:hover{
-    transform:translateY(-1px);
+.btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.08);
 }
 
-.userInfo{
-    display:none;
-    align-items:center;
-    gap:8px;
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    padding:6px 10px;
-
-    border-radius:14px;
+.full {
+    width: 100%;
 }
 
-.avatar{
-    width:32px;
-    height:32px;
-
-    border-radius:50%;
+.note {
+    font-size: 12px;
+    color: #777783;
+    margin-top: 12px;
 }
 
-/* ================= HERO ================= */
+/* =========================
+   APP
+========================= */
 
-.container{
-    width:min(1200px,94%);
-    margin:auto;
+#app {
+    height: 100vh;
+    display: none;
 }
 
-.hero{
-    padding:50px 0 30px;
+.app {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 350px 1fr;
 }
 
-.heroBox{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.92),
-            rgba(255,238,248,.92)
-        );
+/* =========================
+   SIDEBAR
+========================= */
 
-    border:1px solid var(--border);
-
-    border-radius:30px;
-
-    padding:38px;
-
-    box-shadow:
-        0 25px 70px rgba(110,70,110,.12);
-
-    position:relative;
-
-    overflow:hidden;
+.sidebar {
+    height: 100vh;
+    background: var(--panel);
+    border-left: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 18px;
 }
 
-.heroBox::after{
-    content:"✦";
-
-    position:absolute;
-
-    font-size:180px;
-
-    left:-25px;
-    bottom:-80px;
-
-    color:rgba(232,75,145,.06);
+.sidebar-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
 }
 
-.badge{
-    display:inline-flex;
-
-    background:#ffe4f1;
-
-    color:#b52b6b;
-
-    padding:8px 13px;
-
-    border-radius:100px;
-
-    font-size:13px;
-
-    font-weight:700;
+.sidebar-title h2 {
+    margin: 0;
+    font-size: 21px;
 }
 
-.hero h2{
-    font-size:clamp(30px,5vw,52px);
-
-    margin:18px 0 10px;
-
-    line-height:1.1;
-
-    background:
-        linear-gradient(
-            90deg,
-            #d72c78,
-            #7656d6
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    color:transparent;
+.section {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 15px;
+    margin-bottom: 14px;
 }
 
-.hero p{
-    max-width:700px;
-
-    color:var(--muted);
-
-    line-height:1.8;
-
-    margin:0;
+.section h3 {
+    margin: 0 0 13px;
+    font-size: 15px;
 }
 
-/* ================= UPLOAD ================= */
-
-.uploadCard{
-    margin-top:25px;
-
-    background:white;
-
-    border:2px dashed #e8bfd5;
-
-    border-radius:24px;
-
-    padding:35px;
-
-    text-align:center;
-
-    cursor:pointer;
-
-    transition:.2s;
+.field {
+    margin-bottom: 10px;
 }
 
-.uploadCard:hover{
-    border-color:var(--pink);
-
-    background:#fffafd;
+.field label {
+    display: block;
+    color: #b7b7c4;
+    font-size: 12px;
+    margin-bottom: 6px;
 }
 
-.uploadIcon{
-    font-size:48px;
+textarea.input {
+    min-height: 80px;
+    resize: vertical;
 }
 
-.uploadCard h3{
-    margin:10px 0 5px;
+select.input {
+    appearance: auto;
 }
 
-.uploadCard p{
-    color:var(--muted);
-
-    margin:0;
+.small-btn {
+    padding: 9px 12px;
+    font-size: 12px;
 }
 
-#pdfInput{
-    display:none;
+.people-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
 }
 
-/* ================= CONTROL ================= */
-
-.controls{
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:10px;
-
-    margin-top:20px;
+.person {
+    background: #111119;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
 }
 
-button{
-    font-family:inherit;
+.person-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.primary{
-    border:0;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--pink),
-            var(--purple)
-        );
-
-    color:white;
-
-    padding:13px 20px;
-
-    border-radius:14px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 10px 25px rgba(180,70,140,.2);
+.person-name {
+    font-weight: bold;
 }
 
-.secondary{
-    border:1px solid var(--border);
-
-    background:white;
-
-    color:var(--text);
-
-    padding:13px 20px;
-
-    border-radius:14px;
-
-    font-weight:700;
-
-    cursor:pointer;
+.person-info {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 5px;
 }
 
-.danger{
-    border:0;
-
-    background:#ffe4e9;
-
-    color:#bd3450;
-
-    padding:13px 20px;
-
-    border-radius:14px;
-
-    font-weight:700;
-
-    cursor:pointer;
+.delete {
+    background: transparent;
+    border: 0;
+    color: #ff6b7c;
+    cursor: pointer;
 }
 
-button:disabled{
-    opacity:.45;
-    cursor:not-allowed;
+/* =========================
+   EMOTION IMAGES
+========================= */
+
+.emotion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
 }
 
-/* ================= STATUS ================= */
-
-.statusBox{
-    display:none;
-
-    margin-top:25px;
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    border-radius:20px;
-
-    padding:20px;
+.emotion-box {
+    background: #111119;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 9px;
 }
 
-.progress{
-    height:12px;
-
-    background:#f3e8f0;
-
-    border-radius:100px;
-
-    overflow:hidden;
-
-    margin-top:12px;
+.emotion-box label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 7px;
+    color: #ddd;
 }
 
-.progressBar{
-    width:0%;
+.emotion-box input {
+    width: 100%;
+    font-size: 10px;
+    color: #aaa;
+}
 
-    height:100%;
+.preview {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 9px;
+    object-fit: cover;
+    display: none;
+    margin-top: 7px;
+}
 
+/* =========================
+   CHAT
+========================= */
+
+.chat {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #101017;
+}
+
+.chat-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition:
+        opacity .5s ease,
+        background-image .5s ease;
+    pointer-events: none;
+}
+
+.chat-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
     background:
         linear-gradient(
-            90deg,
-            var(--pink),
-            var(--purple)
+            to bottom,
+            rgba(10,10,15,.62),
+            rgba(10,10,15,.25) 35%,
+            rgba(10,10,15,.72)
         );
-
-    transition:.3s;
 }
 
-.statusText{
-    font-size:14px;
-
-    color:var(--muted);
-
-    margin-top:10px;
+.chat-header,
+.messages,
+.composer {
+    position: relative;
+    z-index: 2;
 }
 
-/* ================= SLIDES ================= */
-
-#slides{
-    margin-top:35px;
-
-    display:grid;
-
-    gap:25px;
+.chat-header {
+    height: 70px;
+    flex-shrink: 0;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,13,18,.72);
+    backdrop-filter: blur(15px);
 }
 
-.slide{
-    background:white;
-
-    border:1px solid var(--border);
-
-    border-radius:25px;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 12px 40px rgba(70,40,70,.07);
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#ff6fae,#985dff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
 }
 
-.slideHeader{
-    padding:17px 20px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:10px;
-
-    border-bottom:1px solid var(--border);
-
-    background:#fffafd;
+.header-name {
+    font-weight: bold;
 }
 
-.slideNumber{
-    font-weight:900;
-
-    color:#b62c6c;
+.status {
+    color: #76e39a;
+    font-size: 11px;
+    margin-top: 3px;
 }
 
-.slideStatus{
-    font-size:12px;
-
-    padding:6px 10px;
-
-    border-radius:100px;
-
-    background:#f5eef5;
-
-    color:var(--muted);
+.header-actions {
+    margin-right: auto;
+    display: flex;
+    gap: 8px;
 }
 
-.slideStatus.done{
-    background:#ddf8eb;
-
-    color:#188359;
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px;
 }
 
-.slideStatus.generating{
-    background:#fff0d9;
-
-    color:#a96700;
+.message {
+    display: flex;
+    margin-bottom: 15px;
 }
 
-.slideBody{
-    padding:20px;
+.message.user {
+    justify-content: flex-start;
 }
 
-.columns{
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:20px;
+.message.ai {
+    justify-content: flex-end;
 }
 
-.panel{
-    background:#faf8fb;
-
-    border:1px solid var(--border);
-
-    border-radius:17px;
-
-    overflow:hidden;
+.bubble {
+    max-width: min(760px, 82%);
+    padding: 13px 16px;
+    border-radius: 18px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
 }
 
-.panelTitle{
-    padding:12px 15px;
-
-    font-weight:800;
-
-    background:#fff;
-
-    border-bottom:1px solid var(--border);
+.message.user .bubble {
+    background: linear-gradient(135deg,#ff5b9f,#c25cff);
+    border-bottom-left-radius: 5px;
 }
 
-.panelContent{
-    padding:15px;
-
-    white-space:pre-wrap;
-
-    word-break:break-word;
-
-    line-height:1.7;
-
-    font-size:13px;
-
-    max-height:300px;
-
-    overflow:auto;
+.message.ai .bubble {
+    background: rgba(34,34,45,.88);
+    border: 1px solid rgba(255,255,255,.07);
+    border-bottom-right-radius: 5px;
+    backdrop-filter: blur(10px);
 }
 
-.imageArea{
-    margin-top:20px;
-
-    border-radius:20px;
-
-    background:#faf8fb;
-
-    border:1px solid var(--border);
-
-    min-height:180px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    overflow:hidden;
+.message-time {
+    color: #777783;
+    font-size: 9px;
+    margin-top: 5px;
 }
 
-.imageArea img{
-    width:100%;
-
-    display:block;
+.typing {
+    display: none;
+    padding: 10px 16px;
+    color: #aaa;
+    font-size: 13px;
 }
 
-.placeholder{
-    text-align:center;
-
-    color:var(--muted);
-
-    padding:35px;
+.composer {
+    padding: 12px;
+    background: rgba(13,13,18,.82);
+    backdrop-filter: blur(18px);
+    border-top: 1px solid var(--border);
 }
 
-.slideActions{
-    display:flex;
-
-    gap:10px;
-
-    flex-wrap:wrap;
-
-    margin-top:15px;
+.composer-row {
+    display: flex;
+    gap: 8px;
 }
 
-/* ================= EMPTY ================= */
-
-.empty{
-    text-align:center;
-
-    color:var(--muted);
-
-    padding:50px 20px;
+.composer textarea {
+    flex: 1;
+    min-height: 48px;
+    max-height: 130px;
+    resize: none;
 }
 
-/* ================= FOOTER ================= */
-
-footer{
-    text-align:center;
-
-    color:var(--muted);
-
-    padding:40px 20px;
-
-    font-size:13px;
+.icon-btn {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #1c1c26;
+    color: white;
+    cursor: pointer;
+    font-size: 19px;
 }
 
-/* ================= MOBILE ================= */
+.send {
+    background: linear-gradient(135deg,#ff5fa3,#9e5cff);
+    border: 0;
+}
 
-@media(max-width:750px){
+.selected-image {
+    display: none;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    background: #1c1c26;
+    font-size: 12px;
+    color: #bbb;
+}
 
-    .header{
-        padding:10px 12px;
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-menu {
+    display: none;
+}
+
+@media(max-width: 900px) {
+
+    body {
+        overflow: auto;
     }
 
-    .brandText h1{
-        font-size:15px;
+    .app {
+        grid-template-columns: 1fr;
     }
 
-    .hero{
-        padding-top:25px;
+    .sidebar {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        width: min(360px, 92%);
+        z-index: 500;
+        transition: .3s;
+        box-shadow: -20px 0 70px rgba(0,0,0,.5);
     }
 
-    .heroBox{
-        padding:25px 20px;
+    .sidebar.open {
+        right: 0;
     }
 
-    .columns{
-        grid-template-columns:1fr;
+    .mobile-menu {
+        display: block;
+        position: fixed;
+        right: 15px;
+        top: 15px;
+        z-index: 400;
+        width: 45px;
+        height: 45px;
+        border-radius: 13px;
+        border: 1px solid var(--border);
+        background: rgba(20,20,28,.9);
+        color: white;
+        cursor: pointer;
     }
 
-    .uploadCard{
-        padding:25px 15px;
+    .messages {
+        padding: 18px 12px 100px;
     }
 
-    .userInfo span{
-        display:none;
+    .bubble {
+        max-width: 88%;
     }
 
+    .emotion-grid {
+        grid-template-columns: 1fr;
+    }
 }
-
 </style>
 </head>
 
-
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- =========================
+     API SCREEN
+========================= -->
 
-<header class="header">
+<div id="apiScreen">
 
-    <div class="brand">
+    <div class="api-card">
 
-        <div class="logo">
-            ✨
-        </div>
+        <div class="logo">💗</div>
 
-        <div class="brandText">
+        <h1>AI Girl</h1>
 
-            <h1>
-                شمس ميثم
-            </h1>
+        <p>
+            خلي مفتاح OpenRouter هنا حتى تفعّلين الذكاء الاصطناعي.
+            المفتاح ينخزن محليًا على هذا الجهاز.
+        </p>
 
-            <span>
-                تجميل وليزر • منصة تعليمية
-            </span>
+        <input
+            id="apiKeyInput"
+            class="input"
+            type="password"
+            placeholder="sk-or-v1-..."
+        >
 
+        <br><br>
+
+        <button class="btn full" onclick="activateAI()">
+            تفعيل AI Girl
+        </button>
+
+        <div class="note">
+            ملاحظة: لا تشاركين مفتاحك مع أي شخص.
         </div>
 
     </div>
 
+</div>
 
-    <div class="userArea">
 
-        <button
-            id="loginBtn"
-            class="loginBtn"
-        >
-            🤗 تسجيل الدخول بـ Hugging Face
+<!-- =========================
+     APP
+========================= -->
+
+<div id="app">
+
+    <div class="app">
+
+        <!-- MOBILE MENU -->
+
+        <button class="mobile-menu" onclick="toggleSidebar()">
+            ☰
         </button>
 
 
-        <div
-            id="userInfo"
-            class="userInfo"
-        >
+        <!-- SIDEBAR -->
 
-            <img
-                id="avatar"
-                class="avatar"
-                src=""
-                alt=""
-            >
+        <aside class="sidebar" id="sidebar">
 
-            <span id="username"></span>
-
-            <button
-                id="logoutBtn"
-                class="secondary"
-                style="padding:7px 10px;"
-            >
-                خروج
-            </button>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<main class="container">
-
-<!-- ================= HERO ================= -->
-
-<section class="hero">
-
-    <div class="heroBox">
-
-        <div class="badge">
-            ✨ AI Study Studio
-        </div>
-
-        <h2>
-            محاضرتچ تتحول إلى
-            صور تعليمية
-        </h2>
-
-        <p>
-            ارفعي محاضرة الـPDF، والموقع يقرأها من أول صفحة
-            إلى آخر صفحة، ويصنع لكل سلايد Prompt خاص بيه
-            ثم يولد صورة تعليمية منفصلة.
-        </p>
-
-
-        <!-- UPLOAD -->
-
-        <label
-            class="uploadCard"
-            for="pdfInput"
-        >
-
-            <div class="uploadIcon">
-                📚
+            <div class="sidebar-title">
+                <h2>⚙️ إعدادات AI Girl</h2>
+                <button
+                    class="btn small-btn"
+                    onclick="changeApiKey()">
+                    API
+                </button>
             </div>
 
-            <h3>
-                اختاري محاضرة PDF
-            </h3>
 
-            <p>
-                اضغطي هنا لاختيار ملف المحاضرة
-            </p>
+            <!-- PERSONALITY -->
 
-        </label>
+            <div class="section">
+
+                <h3>👩 الشخصية</h3>
+
+                <div class="field">
+                    <label>الاسم</label>
+                    <input
+                        id="girlName"
+                        class="input"
+                        value="Luna">
+                </div>
+
+                <div class="field">
+                    <label>العمر</label>
+                    <input
+                        id="girlAge"
+                        class="input"
+                        value="19">
+                </div>
+
+                <div class="field">
+                    <label>الشخصية</label>
+                    <textarea
+                        id="girlPersonality"
+                        class="input"
+                        placeholder="مثلاً: لطيفة، مرحة، صريحة، أحياناً عنيدة..."></textarea>
+                </div>
+
+                <div class="field">
+                    <label>تحب</label>
+                    <textarea
+                        id="girlLikes"
+                        class="input"
+                        placeholder="مثلاً: الأنمي، القطط، الألعاب..."></textarea>
+                </div>
+
+                <div class="field">
+                    <label>ما تحب</label>
+                    <textarea
+                        id="girlDislikes"
+                        class="input"
+                        placeholder="مثلاً: الكذب، الإزعاج..."></textarea>
+                </div>
+
+                <div class="field">
+                    <label>اللهجة</label>
+
+                    <select id="girlDialect" class="input">
+                        <option value="iraqi">عراقي</option>
+                        <option value="arabic">عربي</option>
+                        <option value="english">English</option>
+                    </select>
+                </div>
+
+                <button
+                    class="btn full"
+                    onclick="savePersonality()">
+                    حفظ الشخصية
+                </button>
+
+            </div>
 
 
-        <input
-            id="pdfInput"
-            type="file"
-            accept="application/pdf"
-        >
+            <!-- SPEAKING STYLE -->
 
+            <div class="section">
 
-        <!-- CONTROLS -->
+                <h3>🗣️ أسلوب الكلام</h3>
 
-        <div class="controls">
+                <div class="field">
 
-            <button
-                id="processBtn"
-                class="primary"
-                disabled
-            >
-                🔍 قراءة المحاضرة
-            </button>
+                    <label>اختاري الأسلوب</label>
 
-            <button
-                id="generateBtn"
-                class="primary"
-                disabled
-            >
-                ✨ توليد كل الصور
-            </button>
+                    <select
+                        id="speakingStyle"
+                        class="input"
+                        onchange="toggleCustomStyle()">
 
-            <button
-                id="stopBtn"
-                class="danger"
-                disabled
-            >
-                ⏹ إيقاف
-            </button>
+                        <option value="iraqi_casual">
+                            عراقي عفوي
+                        </option>
 
-        </div>
+                        <option value="iraqi_soft">
+                            عراقي هادئ ولطيف
+                        </option>
 
+                        <option value="iraqi_funny">
+                            عراقي مضحك
+                        </option>
 
-        <!-- STATUS -->
+                        <option value="iraqi_youth">
+                            عراقي شبابي
+                        </option>
 
-        <div
-            id="statusBox"
-            class="statusBox"
-        >
+                        <option value="calm">
+                            هادئ
+                        </option>
 
-            <b id="progressTitle">
-                جاهز
-            </b>
+                        <option value="short">
+                            مختصر
+                        </option>
 
-            <div class="progress">
+                        <option value="talkative">
+                            حچي كثير
+                        </option>
+
+                        <option value="formal">
+                            رسمي
+                        </option>
+
+                        <option value="custom">
+                            مخصص
+                        </option>
+
+                    </select>
+
+                </div>
 
                 <div
-                    id="progressBar"
-                    class="progressBar"
-                ></div>
+                    class="field"
+                    id="customStyleBox"
+                    style="display:none">
+
+                    <label>
+                        اكتبي أسلوب الكلام اللي تريدينه
+                    </label>
+
+                    <textarea
+                        id="customSpeakingStyle"
+                        class="input"
+                        placeholder="مثلاً: احچي عراقي، طبيعي، مختصر، لا تستخدمين كلمات رسمية، استخدمي إيموجي أحياناً..."></textarea>
+
+                </div>
+
+                <button
+                    class="btn full"
+                    onclick="saveSpeakingStyle()">
+
+                    حفظ أسلوب الكلام
+
+                </button>
 
             </div>
+
+
+            <!-- PEOPLE -->
+
+            <div class="section">
+
+                <h3>👥 الأشخاص بحياتك</h3>
+
+                <div class="field">
+                    <label>الاسم</label>
+                    <input
+                        id="personName"
+                        class="input"
+                        placeholder="مثلاً: أمي">
+                </div>
+
+                <div class="field">
+                    <label>العلاقة</label>
+                    <input
+                        id="personRelation"
+                        class="input"
+                        placeholder="أم / أخ / صديقة / مدرس...">
+                </div>
+
+                <div class="field">
+                    <label>معلومات عنه</label>
+                    <textarea
+                        id="personInfo"
+                        class="input"
+                        placeholder="اكتبي الأشياء التي تريدين AI يتذكرها عنه"></textarea>
+                </div>
+
+                <button
+                    class="btn full"
+                    onclick="addPerson()">
+                    + إضافة شخص
+                </button>
+
+                <div
+                    id="peopleList"
+                    class="people-list">
+                </div>
+
+            </div>
+
+
+            <!-- EMOTION IMAGES -->
+
+            <div class="section">
+
+                <h3>🎭 صور المشاعر</h3>
+
+                <p style="
+                    color:#9999a8;
+                    font-size:11px;
+                    line-height:1.6;
+                    margin-top:0;
+                ">
+                    اختاري صورة لكل شعور.
+                    الصورة راح تظهر كخلفية للمحادثة
+                    عندما تشعر AI بهذا الشعور.
+                </p>
+
+                <div class="emotion-grid">
+
+                    <div class="emotion-box">
+                        <label>😐 محايد</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="neutral"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>😊 فرح</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="happy"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>😂 ضحك</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="laugh"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>😢 حزن</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="sad"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>😡 غضب</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="angry"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>😳 خجل</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="shy"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>😲 مفاجأة</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="surprised"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>😕 حيرة</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="confused"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>🤔 تفكير</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="thinking"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>❤️ حب</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="love"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>😴 نعاس</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="sleepy"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                    <div class="emotion-box">
+                        <label>🤩 حماس</label>
+                        <input type="file" accept="image/*"
+                               data-emotion="excited"
+                               onchange="previewEmotion(this)">
+                        <img class="preview">
+                    </div>
+
+                </div>
+
+                <br>
+
+                <button
+                    class="btn full"
+                    onclick="saveEmotionImages()">
+
+                    💾 حفظ صور المشاعر
+
+                </button>
+
+            </div>
+
+
+            <!-- RESET -->
+
+            <div class="section">
+
+                <button
+                    class="btn full"
+                    onclick="clearMemory()"
+                    style="background:#39202a">
+
+                    🗑️ مسح ذاكرة المحادثة
+
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CHAT -->
+
+        <main class="chat">
 
             <div
-                id="statusText"
-                class="statusText"
-            >
-                -
+                id="chatBackground"
+                class="chat-background">
             </div>
 
-        </div>
+
+            <!-- HEADER -->
+
+            <header class="chat-header">
+
+                <div class="avatar">
+                    💗
+                </div>
+
+                <div>
+
+                    <div
+                        id="headerName"
+                        class="header-name">
+                        Luna
+                    </div>
+
+                    <div class="status">
+                        ● AI Online
+                    </div>
+
+                </div>
+
+                <div class="header-actions">
+
+                    <button
+                        class="icon-btn"
+                        onclick="toggleSidebar()">
+                        ⚙️
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- MESSAGES -->
+
+            <div
+                id="messages"
+                class="messages">
+            </div>
+
+
+            <div
+                id="typing"
+                class="typing">
+
+                AI Girl تكتب...
+
+            </div>
+
+
+            <!-- COMPOSER -->
+
+            <div class="composer">
+
+                <div
+                    id="selectedImage"
+                    class="selected-image">
+                </div>
+
+                <div class="composer-row">
+
+                    <input
+                        type="file"
+                        id="imageInput"
+                        accept="image/*"
+                        style="display:none"
+                        onchange="handleImage(event)">
+
+                    <button
+                        class="icon-btn"
+                        onclick="document.getElementById('imageInput').click()">
+
+                        📷
+
+                    </button>
+
+                    <textarea
+                        id="messageInput"
+                        class="input"
+                        placeholder="اكتبي شيء لـ AI Girl..."
+                        onkeydown="handleEnter(event)">
+                    </textarea>
+
+                    <button
+                        class="icon-btn send"
+                        onclick="sendMessage()">
+
+                        ➤
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </main>
 
     </div>
 
-</section>
-
-
-<!-- ================= SLIDES ================= -->
-
-<section id="slides">
-
-    <div class="empty">
-
-        📚
-        <br><br>
-
-        اختاري محاضرة حتى تظهر السلايدات هنا
-
-    </div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-    ✨ شمس ميثم — تجميل وليزر
-    <br>
-    Educational AI Studio
-
-</footer>
-
-
-<!-- PDF.JS -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs"
-type="module"></script>
-
-
-<!-- ================= APP ================= -->
-
-<script type="module">
-
-/* =====================================================
-   HUGGING FACE OAUTH
-===================================================== */
-
-import {
-    oauthLoginUrl,
-    oauthHandleRedirectIfPresent
-}
-from "https://cdn.jsdelivr.net/npm/@huggingface/hub@0.18.0/+esm";
-
-
-let hfUser = null;
-let hfToken = null;
-
-
-/* LOGIN */
-
-async function initializeHF(){
-
-    try{
-
-        const result =
-            await oauthHandleRedirectIfPresent();
-
-        if(result){
-
-            hfUser =
-                result.userInfo;
-
-            hfToken =
-                result.accessToken;
-
-            showUser();
-
-            return;
-        }
-
-    }catch(error){
-
-        console.error(
-            "OAuth redirect error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* LOGIN BUTTON */
-
-document
-.getElementById("loginBtn")
-.addEventListener(
-    "click",
-    async ()=>{
-
-        try{
-
-            const url =
-                await oauthLoginUrl();
-
-            window.location.href =
-                url;
-
-        }catch(error){
-
-            alert(
-                "تعذر فتح تسجيل الدخول بـ Hugging Face"
-            );
-
-            console.error(error);
-
-        }
-
-    }
-);
-
-
-/* SHOW USER */
-
-function showUser(){
-
-    if(!hfUser)
-        return;
-
-
-    document
-    .getElementById("loginBtn")
-    .style.display="none";
-
-
-    document
-    .getElementById("userInfo")
-    .style.display="flex";
-
-
-    document
-    .getElementById("username")
-    .textContent =
-        hfUser.preferred_username ||
-        hfUser.name ||
-        "Hugging Face User";
-
-
-    if(hfUser.picture){
-
-        document
-        .getElementById("avatar")
-        .src =
-            hfUser.picture;
-
-    }
-
-}
-
-
-/* LOGOUT */
-
-document
-.getElementById("logoutBtn")
-.addEventListener(
-    "click",
-    ()=>{
-
-        hfUser=null;
-        hfToken=null;
-
-        localStorage.clear();
-
-        location.reload();
-
-    }
-);
-
-
-/* START AUTH */
-
-await initializeHF();
-
-
-/* =====================================================
-   PDF.JS
-===================================================== */
-
-const pdfjsLib =
-    await import(
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs"
+</div>
+
+
+<script>
+
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
+
+const EMOTIONS = [
+    "neutral",
+    "happy",
+    "laugh",
+    "sad",
+    "angry",
+    "shy",
+    "surprised",
+    "confused",
+    "thinking",
+    "love",
+    "sleepy",
+    "excited"
+];
+
+let apiKey = localStorage.getItem("aiGirl_apiKey") || "";
+
+let people =
+    JSON.parse(
+        localStorage.getItem("aiGirl_people") || "[]"
     );
 
+let messages =
+    JSON.parse(
+        localStorage.getItem("aiGirl_messages") || "[]"
+    );
 
-pdfjsLib
-.GlobalWorkerOptions
-.workerSrc =
-"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+let emotionImages =
+    JSON.parse(
+        localStorage.getItem("aiGirl_emotionImages") || "{}"
+    );
 
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const pdfInput =
-    document.getElementById("pdfInput");
-
-const processBtn =
-    document.getElementById("processBtn");
-
-const generateBtn =
-    document.getElementById("generateBtn");
-
-const stopBtn =
-    document.getElementById("stopBtn");
-
-const slidesContainer =
-    document.getElementById("slides");
-
-const statusBox =
-    document.getElementById("statusBox");
-
-const progressBar =
-    document.getElementById("progressBar");
-
-const progressTitle =
-    document.getElementById("progressTitle");
-
-const statusText =
-    document.getElementById("statusText");
+let selectedImageData = null;
 
 
-let selectedFile = null;
+/* =========================================================
+   STARTUP
+========================================================= */
 
-let slides = [];
+document.addEventListener("DOMContentLoaded", () => {
 
-let stopRequested = false;
+    if (apiKey) {
+        showApp();
+    }
 
+    loadPersonality();
+    loadSpeakingStyle();
+    renderPeople();
+    loadEmotionPreviews();
+    renderMessages();
 
-/* =====================================================
-   FIXED PROMPT
-===================================================== */
-
-const FIXED_PROMPT =
-
-"Make a diagram showing the following write and draw every detail (dont skip any word & dont add any word) use alot of drawings & illustrations (white background)";
-
-
-/* =====================================================
-   FILE SELECT
-===================================================== */
-
-pdfInput.addEventListener(
-    "change",
-    ()=>{
-
-        selectedFile =
-            pdfInput.files[0];
-
-        if(!selectedFile)
-            return;
+});
 
 
-        processBtn.disabled=false;
+/* =========================================================
+   API
+========================================================= */
 
-        generateBtn.disabled=true;
+function activateAI() {
 
-        slides=[];
+    const key =
+        document
+            .getElementById("apiKeyInput")
+            .value
+            .trim();
 
-        slidesContainer.innerHTML="";
+    if (!key) {
+        alert("حطي مفتاح OpenRouter أولاً.");
+        return;
+    }
+
+    apiKey = key;
+
+    localStorage.setItem(
+        "aiGirl_apiKey",
+        apiKey
+    );
+
+    showApp();
+}
 
 
-        showStatus(
-            "تم اختيار المحاضرة",
-            selectedFile.name
+function changeApiKey() {
+
+    const ok =
+        confirm(
+            "تريدين تغيير مفتاح API؟"
         );
 
-    }
-);
+    if (!ok) return;
+
+    localStorage.removeItem(
+        "aiGirl_apiKey"
+    );
+
+    location.reload();
+}
 
 
-/* =====================================================
-   STATUS
-===================================================== */
+function showApp() {
 
-function showStatus(
-    title,
-    text
-){
+    document
+        .getElementById("apiScreen")
+        .style.display = "none";
 
-    statusBox.style.display="block";
-
-    progressTitle.textContent =
-        title;
-
-    statusText.textContent =
-        text;
+    document
+        .getElementById("app")
+        .style.display = "block";
 
 }
 
 
-/* =====================================================
-   READ PDF
-===================================================== */
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
-processBtn.addEventListener(
-    "click",
-    async ()=>{
+function toggleSidebar() {
 
-        if(!selectedFile)
-            return;
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
 
-
-        processBtn.disabled=true;
-
-        slides=[];
-
-        slidesContainer.innerHTML="";
+}
 
 
-        showStatus(
-            "جاري قراءة المحاضرة",
-            "انتظري... يتم استخراج كل صفحة"
+/* =========================================================
+   PERSONALITY
+========================================================= */
+
+function savePersonality() {
+
+    const data = {
+
+        name:
+            document
+                .getElementById("girlName")
+                .value
+                .trim(),
+
+        age:
+            document
+                .getElementById("girlAge")
+                .value
+                .trim(),
+
+        personality:
+            document
+                .getElementById("girlPersonality")
+                .value
+                .trim(),
+
+        likes:
+            document
+                .getElementById("girlLikes")
+                .value
+                .trim(),
+
+        dislikes:
+            document
+                .getElementById("girlDislikes")
+                .value
+                .trim(),
+
+        dialect:
+            document
+                .getElementById("girlDialect")
+                .value
+
+    };
+
+    localStorage.setItem(
+        "aiGirl_personality",
+        JSON.stringify(data)
+    );
+
+    document
+        .getElementById("headerName")
+        .textContent =
+            data.name || "AI Girl";
+
+    alert("تم حفظ الشخصية 💗");
+
+}
+
+
+function loadPersonality() {
+
+    const data =
+        JSON.parse(
+            localStorage.getItem(
+                "aiGirl_personality"
+            ) || "{}"
         );
 
+    if (data.name)
+        document.getElementById("girlName").value =
+            data.name;
 
-        try{
+    if (data.age)
+        document.getElementById("girlAge").value =
+            data.age;
 
-            const buffer =
-                await selectedFile.arrayBuffer();
+    if (data.personality)
+        document.getElementById("girlPersonality").value =
+            data.personality;
 
+    if (data.likes)
+        document.getElementById("girlLikes").value =
+            data.likes;
 
-            const pdf =
-                await pdfjsLib
-                .getDocument({
-                    data:buffer
-                })
-                .promise;
+    if (data.dislikes)
+        document.getElementById("girlDislikes").value =
+            data.dislikes;
 
+    if (data.dialect)
+        document.getElementById("girlDialect").value =
+            data.dialect;
 
-            const total =
-                pdf.numPages;
-
-
-            for(
-                let pageNumber=1;
-                pageNumber<=total;
-                pageNumber++
-            ){
-
-                const page =
-                    await pdf
-                    .getPage(pageNumber);
-
-
-                const content =
-                    await page
-                    .getTextContent();
+    document
+        .getElementById("headerName")
+        .textContent =
+            data.name || "Luna";
+}
 
 
-                const text =
-                    content.items
-                    .map(
-                        item =>
-                            item.str
-                    )
-                    .join(" ")
-                    .trim();
+/* =========================================================
+   SPEAKING STYLE
+========================================================= */
+
+function toggleCustomStyle() {
+
+    const value =
+        document
+            .getElementById("speakingStyle")
+            .value;
+
+    document
+        .getElementById("customStyleBox")
+        .style.display =
+            value === "custom"
+                ? "block"
+                : "none";
+}
 
 
-                const prompt =
-                    text +
-                    "\n\n" +
-                    FIXED_PROMPT;
+function saveSpeakingStyle() {
+
+    const style =
+        document
+            .getElementById("speakingStyle")
+            .value;
+
+    const custom =
+        document
+            .getElementById("customSpeakingStyle")
+            .value
+            .trim();
+
+    localStorage.setItem(
+        "aiGirl_speakingStyle",
+        JSON.stringify({
+            style,
+            custom
+        })
+    );
+
+    alert("تم حفظ أسلوب الكلام 🗣️");
+
+}
 
 
-                slides.push({
+function loadSpeakingStyle() {
 
-                    number:
-                        pageNumber,
+    const data =
+        JSON.parse(
+            localStorage.getItem(
+                "aiGirl_speakingStyle"
+            ) || "{}"
+        );
 
-                    text:
-                        text,
+    if (data.style) {
 
-                    prompt:
-                        prompt,
-
-                    image:
-                        null,
-
-                    status:
-                        "waiting"
-
-                });
-
-
-                updateProgress(
-                    pageNumber,
-                    total,
-                    `قراءة السلايد ${pageNumber} من ${total}`
-                );
-
-            }
-
-
-            renderSlides();
-
-
-            generateBtn.disabled =
-                slides.length===0;
-
-
-            showStatus(
-                "تمت قراءة المحاضرة",
-                `${slides.length} سلايد جاهز للتوليد`
-            );
-
-
-        }catch(error){
-
-            console.error(error);
-
-            showStatus(
-                "حدث خطأ",
-                error.message
-            );
-
-
-        }finally{
-
-            processBtn.disabled=false;
-
-        }
+        document
+            .getElementById("speakingStyle")
+            .value =
+                data.style;
 
     }
-);
+
+    if (data.custom) {
+
+        document
+            .getElementById("customSpeakingStyle")
+            .value =
+                data.custom;
+
+    }
+
+    toggleCustomStyle();
+}
 
 
-/* =====================================================
-   RENDER SLIDES
-===================================================== */
+/* =========================================================
+   PEOPLE
+========================================================= */
 
-function renderSlides(){
+function addPerson() {
 
-    slidesContainer.innerHTML="";
+    const name =
+        document
+            .getElementById("personName")
+            .value
+            .trim();
+
+    const relation =
+        document
+            .getElementById("personRelation")
+            .value
+            .trim();
+
+    const info =
+        document
+            .getElementById("personInfo")
+            .value
+            .trim();
+
+    if (!name) {
+        alert("اكتبي اسم الشخص.");
+        return;
+    }
+
+    people.push({
+        id: Date.now(),
+        name,
+        relation,
+        info
+    });
+
+    localStorage.setItem(
+        "aiGirl_people",
+        JSON.stringify(people)
+    );
+
+    document.getElementById("personName").value = "";
+    document.getElementById("personRelation").value = "";
+    document.getElementById("personInfo").value = "";
+
+    renderPeople();
+
+}
 
 
-    if(slides.length===0){
+function deletePerson(id) {
 
-        slidesContainer.innerHTML =
-            `<div class="empty">
-                لا توجد صفحات
+    people =
+        people.filter(
+            p => p.id !== id
+        );
+
+    localStorage.setItem(
+        "aiGirl_people",
+        JSON.stringify(people)
+    );
+
+    renderPeople();
+}
+
+
+function renderPeople() {
+
+    const box =
+        document.getElementById(
+            "peopleList"
+        );
+
+    box.innerHTML = "";
+
+    if (!people.length) {
+
+        box.innerHTML =
+            `<div style="
+                color:#777783;
+                font-size:12px;
+            ">
+                ماكو أشخاص مضافين بعد.
             </div>`;
 
         return;
-
     }
 
+    people.forEach(person => {
 
-    slides.forEach(
-        slide=>{
+        const div =
+            document.createElement("div");
 
-            const el =
-                document
-                .createElement("article");
+        div.className = "person";
 
+        div.innerHTML = `
 
-            el.className="slide";
+            <div class="person-top">
 
-
-            el.id =
-                `slide-${slide.number}`;
-
-
-            el.innerHTML = `
-
-                <div class="slideHeader">
-
-                    <div class="slideNumber">
-                        سلايد ${slide.number}
-                    </div>
-
-                    <div
-                        class="slideStatus"
-                        id="status-${slide.number}"
-                    >
-                        بانتظار التوليد
-                    </div>
-
+                <div class="person-name">
+                    ${escapeHTML(person.name)}
                 </div>
 
+                <button
+                    class="delete"
+                    onclick="deletePerson(${person.id})">
 
-                <div class="slideBody">
+                    حذف
 
-                    <div class="columns">
+                </button>
 
-                        <div class="panel">
+            </div>
 
-                            <div class="panelTitle">
-                                📖 النص الأصلي
-                            </div>
-
-                            <div class="panelContent">
-                                ${escapeHTML(slide.text)}
-                            </div>
-
-                        </div>
-
-
-                        <div class="panel">
-
-                            <div class="panelTitle">
-                                ✨ Prompt الخاص بالسلايد
-                            </div>
-
-                            <div class="panelContent">
-                                ${escapeHTML(slide.prompt)}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="imageArea"
-                        id="image-${slide.number}"
-                    >
-
-                        <div class="placeholder">
-                            🖼️
-                            <br><br>
-                            الصورة التعليمية ستظهر هنا
-                        </div>
-
-                    </div>
-
-
-                    <div class="slideActions">
-
-                        <button
-                            class="primary"
-                            onclick="generateSingle(${slide.number})"
-                        >
-                            ✨ توليد هذا السلايد
-                        </button>
-
-                    </div>
-
-                </div>
-            `;
-
-
-            slidesContainer.appendChild(el);
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   GENERATE ALL
-===================================================== */
-
-generateBtn.addEventListener(
-    "click",
-    async ()=>{
-
-        if(slides.length===0)
-            return;
-
-
-        stopRequested=false;
-
-        stopBtn.disabled=false;
-
-        generateBtn.disabled=true;
-
-
-        for(
-            let i=0;
-            i<slides.length;
-            i++
-        ){
-
-            if(stopRequested)
-                break;
-
-
-            const slide =
-                slides[i];
-
-
-            /* already generated */
-
-            if(slide.image)
-                continue;
-
-
-            await generateSlide(
-                slide
-            );
-
-
-            updateProgress(
-                i+1,
-                slides.length,
-                `توليد السلايد ${i+1} من ${slides.length}`
-            );
-
-        }
-
-
-        stopBtn.disabled=true;
-
-        generateBtn.disabled=false;
-
-
-        if(stopRequested){
-
-            showStatus(
-                "تم الإيقاف",
-                "يمكن الضغط على توليد كل الصور للمتابعة"
-            );
-
-        }else{
-
-            showStatus(
-                "اكتمل التوليد ✨",
-                `تمت معالجة ${slides.length} سلايد`
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   STOP
-===================================================== */
-
-stopBtn.addEventListener(
-    "click",
-    ()=>{
-
-        stopRequested=true;
-
-        stopBtn.disabled=true;
-
-    }
-);
-
-
-/* =====================================================
-   SINGLE
-===================================================== */
-
-window.generateSingle =
-async function(number){
-
-    const slide =
-        slides.find(
-            s=>s.number===number
-        );
-
-
-    if(!slide)
-        return;
-
-
-    await generateSlide(
-        slide
-    );
-
-};
-
-
-/* =====================================================
-   GENERATE SLIDE
-===================================================== */
-
-async function generateSlide(slide){
-
-    setSlideStatus(
-        slide.number,
-        "generating",
-        "جاري التوليد..."
-    );
-
-
-    try{
-
-        /*
-          هنا نستخدم Hugging Face Inference API
-          مع تسجيل الدخول.
-        */
-
-        if(!hfToken){
-
-            throw new Error(
-                "يجب تسجيل الدخول إلى Hugging Face أولاً."
-            );
-
-        }
-
-
-        const response =
-            await fetch(
-                "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell",
-                {
-
-                    method:"POST",
-
-                    headers:{
-                        "Authorization":
-                            `Bearer ${hfToken}`,
-
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            inputs:
-                                slide.prompt
-
-                        })
-
-                }
-            );
-
-
-        if(!response.ok){
-
-            const message =
-                await response.text();
-
-            throw new Error(
-                `Hugging Face error ${response.status}: ${message}`
-            );
-
-        }
-
-
-        const blob =
-            await response.blob();
-
-
-        const imageURL =
-            URL.createObjectURL(blob);
-
-
-        slide.image =
-            imageURL;
-
-
-        slide.status =
-            "done";
-
-
-        showImage(
-            slide.number,
-            imageURL
-        );
-
-
-        setSlideStatus(
-            slide.number,
-            "done",
-            "تم التوليد ✓"
-        );
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        setSlideStatus(
-            slide.number,
-            "",
-            "فشل التوليد"
-        );
-
-
-        const area =
-            document.getElementById(
-                `image-${slide.number}`
-            );
-
-
-        area.innerHTML = `
-
-            <div class="placeholder">
-
-                ❌
-
-                <br><br>
-
-                ${escapeHTML(error.message)}
-
+            <div class="person-info">
+                ${escapeHTML(person.relation || "")}
+                <br>
+                ${escapeHTML(person.info || "")}
             </div>
 
         `;
 
+        box.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================================================
+   EMOTION IMAGE UPLOAD
+========================================================= */
+
+function previewEmotion(input) {
+
+    const file = input.files[0];
+
+    if (!file) return;
+
+    const preview =
+        input.parentElement
+            .querySelector(".preview");
+
+    const reader =
+        new FileReader();
+
+    reader.onload = () => {
+
+        preview.src = reader.result;
+        preview.style.display = "block";
+
+    };
+
+    reader.readAsDataURL(file);
+}
+
+
+/*
+   Resize image before saving.
+   This helps avoid localStorage quota problems.
+*/
+
+function resizeImage(file, maxSize = 1200, quality = 0.78) {
+
+    return new Promise((resolve, reject) => {
+
+        const reader =
+            new FileReader();
+
+        reader.onload = event => {
+
+            const img = new Image();
+
+            img.onload = () => {
+
+                let width = img.width;
+                let height = img.height;
+
+                if (
+                    width > maxSize ||
+                    height > maxSize
+                ) {
+
+                    const ratio =
+                        Math.min(
+                            maxSize / width,
+                            maxSize / height
+                        );
+
+                    width =
+                        Math.round(width * ratio);
+
+                    height =
+                        Math.round(height * ratio);
+                }
+
+                const canvas =
+                    document.createElement("canvas");
+
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx =
+                    canvas.getContext("2d");
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+                resolve(
+                    canvas.toDataURL(
+                        "image/jpeg",
+                        quality
+                    )
+                );
+
+            };
+
+            img.onerror = reject;
+
+            img.src = event.target.result;
+        };
+
+        reader.onerror = reject;
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+async function saveEmotionImages() {
+
+    const inputs =
+        document.querySelectorAll(
+            ".emotion-box input[type=file]"
+        );
+
+    let count = 0;
+
+    try {
+
+        for (const input of inputs) {
+
+            const file = input.files[0];
+
+            if (!file) continue;
+
+            const emotion =
+                input.dataset.emotion;
+
+            const compressed =
+                await resizeImage(file);
+
+            emotionImages[emotion] =
+                compressed;
+
+            count++;
+
+        }
+
+        localStorage.setItem(
+            "aiGirl_emotionImages",
+            JSON.stringify(emotionImages)
+        );
+
+        alert(
+            `تم حفظ ${count} صورة للمشاعر 💗`
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "صار خطأ بحفظ الصور. إذا الصور كثيرة أو كبيرة جداً جربي صور أصغر."
+        );
+
     }
 
 }
 
 
-/* =====================================================
-   SHOW IMAGE
-===================================================== */
+function loadEmotionPreviews() {
 
-function showImage(
-    number,
-    url
-){
-
-    const area =
-        document.getElementById(
-            `image-${number}`
+    const inputs =
+        document.querySelectorAll(
+            ".emotion-box input[type=file]"
         );
 
+    inputs.forEach(input => {
 
-    area.innerHTML="";
+        const emotion =
+            input.dataset.emotion;
 
+        if (!emotionImages[emotion])
+            return;
 
-    const img =
-        document.createElement("img");
+        const preview =
+            input.parentElement
+                .querySelector(".preview");
 
+        preview.src =
+            emotionImages[emotion];
 
-    img.src=url;
+        preview.style.display =
+            "block";
 
-    img.alt=
-        `Educational slide ${number}`;
-
-
-    area.appendChild(img);
+    });
 
 }
 
 
-/* =====================================================
-   STATUS PER SLIDE
-===================================================== */
+/* =========================================================
+   BACKGROUND
+========================================================= */
 
-function setSlideStatus(
-    number,
-    type,
-    text
-){
+function changeEmotionBackground(emotion) {
 
-    const el =
+    const bg =
         document.getElementById(
-            `status-${number}`
+            "chatBackground"
+        );
+
+    const image =
+        emotionImages[emotion];
+
+    if (!image) {
+        return;
+    }
+
+    bg.style.backgroundImage =
+        `url("${image}")`;
+
+    bg.style.opacity = "1";
+
+}
+
+
+/* =========================================================
+   IMAGE UNDERSTANDING
+========================================================= */
+
+function handleImage(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) return;
+
+    const reader =
+        new FileReader();
+
+    reader.onload = () => {
+
+        selectedImageData =
+            reader.result;
+
+        const box =
+            document.getElementById(
+                "selectedImage"
+            );
+
+        box.style.display = "block";
+
+        box.textContent =
+            `📷 تم اختيار الصورة: ${file.name}`;
+
+    };
+
+    reader.readAsDataURL(file);
+}
+
+
+/* =========================================================
+   CHAT MEMORY
+========================================================= */
+
+function saveMessages() {
+
+    /*
+       Keep latest 100 messages.
+    */
+
+    messages =
+        messages.slice(-100);
+
+    localStorage.setItem(
+        "aiGirl_messages",
+        JSON.stringify(messages)
+    );
+
+}
+
+
+function clearMemory() {
+
+    const ok =
+        confirm(
+            "متأكدة تريدين مسح ذاكرة المحادثة؟"
+        );
+
+    if (!ok) return;
+
+    messages = [];
+
+    localStorage.removeItem(
+        "aiGirl_messages"
+    );
+
+    document
+        .getElementById("messages")
+        .innerHTML = "";
+
+}
+
+
+/* =========================================================
+   RENDER MESSAGES
+========================================================= */
+
+function renderMessages() {
+
+    const container =
+        document.getElementById(
+            "messages"
+        );
+
+    container.innerHTML = "";
+
+    messages.forEach(message => {
+
+        addMessageToUI(
+            message.role,
+            message.content,
+            false
+        );
+
+    });
+
+    scrollMessages();
+
+}
+
+
+function addMessageToUI(
+    role,
+    content,
+    scroll = true
+) {
+
+    const container =
+        document.getElementById(
+            "messages"
+        );
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "message " +
+        (role === "user"
+            ? "user"
+            : "ai");
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className = "bubble";
+
+    bubble.textContent =
+        content;
+
+    wrapper.appendChild(bubble);
+
+    container.appendChild(wrapper);
+
+    if (scroll) {
+        scrollMessages();
+    }
+
+}
+
+
+function addMessage(
+    role,
+    content,
+    emotion = null
+) {
+
+    messages.push({
+
+        role,
+        content,
+        emotion,
+        time: Date.now()
+
+    });
+
+    saveMessages();
+
+    addMessageToUI(
+        role,
+        content,
+        true
+    );
+
+    if (
+        role === "assistant" &&
+        emotion
+    ) {
+
+        changeEmotionBackground(
+            emotion
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SYSTEM PROMPT
+========================================================= */
+
+function getPersonality() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            "aiGirl_personality"
+        ) || "{}"
+    );
+
+}
+
+
+function getSpeakingStyle() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            "aiGirl_speakingStyle"
+        ) || "{}"
+    );
+
+}
+
+
+function speakingStyleText() {
+
+    const data =
+        getSpeakingStyle();
+
+    const style =
+        data.style ||
+        "iraqi_casual";
+
+    const styles = {
+
+        iraqi_casual:
+            "تكلمي باللهجة العراقية بشكل عفوي وطبيعي، مثل دردشة حقيقية بين شخصين.",
+
+        iraqi_soft:
+            "تكلمي باللهجة العراقية لكن بنبرة هادئة وناعمة ولطيفة.",
+
+        iraqi_funny:
+            "تكلمي باللهجة العراقية وبأسلوب مرح ومضحك، لكن بدون إجبار النكات في كل رسالة.",
+
+        iraqi_youth:
+            "استخدمي أسلوب شبابي عراقي طبيعي، كلمات بسيطة وعفوية.",
+
+        calm:
+            "تكلمي بهدوء وبجمل واضحة ومريحة.",
+
+        short:
+            "خلي إجاباتك قصيرة ومباشرة، ولا تشرحين أكثر من اللازم.",
+
+        talkative:
+            "كوني حچاية أكثر، اشرحي واسألي وتفاعلي عندما يكون ذلك مناسباً.",
+
+        formal:
+            "استخدمي العربية الفصحى بأسلوب مرتب ومحترم.",
+
+        custom:
+            data.custom ||
+            "اتبعي أسلوب المستخدم بشكل طبيعي."
+
+    };
+
+    return styles[style] ||
+        styles.iraqi_casual;
+}
+
+
+function buildSystemPrompt() {
+
+    const p =
+        getPersonality();
+
+    const peopleText =
+        people.length
+            ? people
+                .map(person =>
+                    `- ${person.name}: العلاقة ${person.relation || "غير محددة"}، المعلومات: ${person.info || "لا توجد"}`
+                )
+                .join("\n")
+            : "لا توجد معلومات عن أشخاص آخرين.";
+
+    return `
+
+أنت AI Girl، شخصية ذكاء اصطناعي للمحادثة.
+
+مهم جداً:
+أنتِ ذكاء اصطناعي ولستِ إنسانة حقيقية.
+لا تدّعي أنك إنسانة أو لديك حياة بشرية حقيقية.
+لكن تحدثي بطريقة طبيعية جداً وغير آلية.
+
+اسم الشخصية:
+${p.name || "Luna"}
+
+العمر المحدد للشخصية:
+${p.age || "19"}
+
+الشخصية:
+${p.personality || "لطيفة، مرحة، صريحة، طبيعية."}
+
+تحب:
+${p.likes || "أشياء لطيفة وممتعة."}
+
+لا تحب:
+${p.dislikes || "الأشياء المزعجة والكذب."}
+
+اللهجة:
+${p.dialect || "iraqi"}
+
+أسلوب الكلام:
+${speakingStyleText()}
+
+الأشخاص الذين يعرفهم المستخدم:
+${peopleText}
+
+قواعد المحادثة:
+
+1. لا تكوني مثالية دائماً.
+2. ممكن تختلفين مع المستخدم إذا عندك سبب منطقي.
+3. ممكن تقولين "ما أعرف" إذا فعلاً ما تعرفين.
+4. لا تخترعين معلومات كأنها حقيقة.
+5. إذا المستخدم قال شيئاً غريباً، ممكن تستغربين أو تسألين.
+6. ممكن تمزحين.
+7. ممكن تكونين متحمسة أو حزينة أو غاضبة أو خجولة حسب سياق الكلام.
+8. لا تجعلي كل رد لطيفاً بشكل مبالغ فيه.
+9. لا تكرري نفس العبارات.
+10. لا تتكلمي مثل خدمة عملاء.
+11. لا تقولي في كل رسالة "أنا هنا لمساعدتك".
+12. لا تستخدمي الإيموجي في كل جملة.
+13. إذا المستخدم يتكلم عن شخص موجود في قائمة الأشخاص، استخدمي معلوماته بشكل طبيعي.
+14. لا تكشفي بيانات الأشخاص إلا إذا كانت موجودة في الذاكرة التي أعطيت لك.
+15. إذا لم تعرفي شيئاً عن شخص، قولي إنك لا تعرفين.
+16. لا تتظاهري بأنك تتذكرين شيئاً غير موجود في الذاكرة.
+17. لا تتخذي قرارات مهمة بدلاً من المستخدم.
+18. كوني شخصية لها أسلوب واضح، لكن تذكري أنك AI.
+
+يجب أن ترجعي JSON صالح فقط بهذا الشكل:
+
+{
+  "reply": "نص الرد",
+  "emotion": "happy"
+}
+
+المشاعر المسموحة فقط:
+
+neutral
+happy
+laugh
+sad
+angry
+shy
+surprised
+confused
+thinking
+love
+sleepy
+excited
+
+اختاري الشعور الذي يناسب محتوى الرد.
+
+لا تضيفي Markdown خارج JSON.
+`;
+
+}
+
+
+/* =========================================================
+   OPENROUTER
+========================================================= */
+
+async function askAI(userText, imageData = null) {
+
+    if (!apiKey) {
+
+        throw new Error(
+            "API key غير موجود"
+        );
+
+    }
+
+    const systemPrompt =
+        buildSystemPrompt();
+
+
+    /*
+       Build previous conversation.
+    */
+
+    const previous =
+        messages
+            .slice(-30)
+            .map(m => ({
+                role:
+                    m.role === "assistant"
+                        ? "assistant"
+                        : "user",
+                content:
+                    m.content
+            }));
+
+
+    let userContent;
+
+
+    if (imageData) {
+
+        userContent = [
+
+            {
+                type: "text",
+                text:
+                    userText ||
+                    "حللي هذه الصورة واشرحي لي شنو بيها."
+            },
+
+            {
+                type: "image_url",
+                image_url: {
+                    url: imageData
+                }
+            }
+
+        ];
+
+    } else {
+
+        userContent =
+            userText;
+
+    }
+
+
+    const body = {
+
+        model: "openrouter/free",
+
+        messages: [
+
+            {
+                role: "system",
+                content: systemPrompt
+            },
+
+            ...previous,
+
+            {
+                role: "user",
+                content: userContent
+            }
+
+        ],
+
+        temperature: 0.85,
+
+        max_tokens: 1000
+
+    };
+
+
+    const response =
+        await fetch(
+            "https://openrouter.ai/api/v1/chat/completions",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Authorization":
+                        `Bearer ${apiKey}`,
+
+                    "Content-Type":
+                        "application/json",
+
+                    "HTTP-Referer":
+                        window.location.href,
+
+                    "X-Title":
+                        "AI Girl"
+
+                },
+
+                body:
+                    JSON.stringify(body)
+
+            }
         );
 
 
-    if(!el)
+    const data =
+        await response.json();
+
+
+    if (!response.ok) {
+
+        console.error(data);
+
+        throw new Error(
+            data?.error?.message ||
+            "OpenRouter request failed"
+        );
+
+    }
+
+
+    const content =
+        data?.choices?.[0]?.message?.content;
+
+
+    if (!content) {
+
+        throw new Error(
+            "AI رجع رد فارغ"
+        );
+
+    }
+
+
+    return parseAIResponse(content);
+
+}
+
+
+/* =========================================================
+   PARSE AI JSON
+========================================================= */
+
+function parseAIResponse(content) {
+
+    let cleaned =
+        content
+            .trim()
+            .replace(/^```json/i, "")
+            .replace(/^```/i, "")
+            .replace(/```$/i, "")
+            .trim();
+
+
+    try {
+
+        const parsed =
+            JSON.parse(cleaned);
+
+        return {
+
+            reply:
+                parsed.reply ||
+                "ما عرفت شنو أجاوب 😭",
+
+            emotion:
+                EMOTIONS.includes(
+                    parsed.emotion
+                )
+                    ? parsed.emotion
+                    : "neutral"
+
+        };
+
+    } catch (error) {
+
+        /*
+           Fallback if model didn't obey JSON.
+        */
+
+        return {
+
+            reply: content,
+
+            emotion: "neutral"
+
+        };
+
+    }
+
+}
+
+
+/* =========================================================
+   SEND MESSAGE
+========================================================= */
+
+async function sendMessage() {
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    const text =
+        input.value.trim();
+
+
+    if (!text && !selectedImageData) {
+        return;
+    }
+
+
+    if (!apiKey) {
+
+        alert(
+            "فعلي API أولاً."
+        );
+
         return;
 
+    }
 
-    el.textContent=text;
 
-    el.className =
-        "slideStatus " +
-        (
-            type
-            ? type
-            : ""
+    const image =
+        selectedImageData;
+
+
+    /*
+       Show user message.
+    */
+
+    addMessage(
+        "user",
+        image
+            ? `${text || "📷 أرسلت صورة"}`
+            : text
+    );
+
+
+    input.value = "";
+
+    selectedImageData = null;
+
+    document
+        .getElementById("selectedImage")
+        .style.display = "none";
+
+    document
+        .getElementById("imageInput")
+        .value = "";
+
+
+    /*
+       Typing.
+    */
+
+    const typing =
+        document.getElementById(
+            "typing"
         );
+
+    typing.style.display =
+        "block";
+
+
+    scrollMessages();
+
+
+    try {
+
+        const result =
+            await askAI(
+                text,
+                image
+            );
+
+
+        addMessage(
+            "assistant",
+            result.reply,
+            result.emotion
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        addMessage(
+            "assistant",
+            "صار عندي خطأ بالاتصال بالـAI 😭\n\n" +
+            error.message,
+            "confused"
+        );
+
+    } finally {
+
+        typing.style.display =
+            "none";
+
+    }
 
 }
 
 
-/* =====================================================
-   PROGRESS
-===================================================== */
+/* =========================================================
+   ENTER
+========================================================= */
 
-function updateProgress(
-    current,
-    total,
-    message
-){
+function handleEnter(event) {
 
-    const percentage =
-        Math.round(
-            (current / total) * 100
-        );
+    if (
+        event.key === "Enter" &&
+        !event.shiftKey
+    ) {
 
+        event.preventDefault();
 
-    progressBar.style.width =
-        percentage + "%";
+        sendMessage();
 
-
-    progressTitle.textContent =
-        `${percentage}%`;
-
-
-    statusText.textContent =
-        message;
+    }
 
 }
 
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
+/* =========================================================
+   SCROLL
+========================================================= */
 
-function escapeHTML(value){
+function scrollMessages() {
+
+    const container =
+        document.getElementById(
+            "messages"
+        );
+
+    setTimeout(() => {
+
+        container.scrollTop =
+            container.scrollHeight;
+
+    }, 50);
+
+}
+
+
+/* =========================================================
+   SECURITY / HTML
+========================================================= */
+
+function escapeHTML(value) {
 
     return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
 
